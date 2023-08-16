@@ -21,7 +21,6 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("here url", this.router.url);
     this.signupForm = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.minLength(3)]],
       lastName: ["", [Validators.required, Validators.minLength(4)]],
@@ -40,6 +39,7 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
+    //Users Role
     this.signupForm.value.role =
       this.router.url == "/signup-student"
         ? "student"
@@ -91,7 +91,7 @@ export class SignupComponent implements OnInit {
         });
     }
   }
-
+  // Confirm Password Validator
   passwordsMatch(): boolean {
     const pwd = this.signupForm.get("pwd").value;
     const confirmPwd = this.signupForm.get("confirmPwd").value;

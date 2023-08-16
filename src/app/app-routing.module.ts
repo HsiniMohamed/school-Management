@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "signup-admin", component: SignupComponent },
   { path: "login", component: LoginComponent },
   { path: "mot-de-passe-oublie", component: ForgotPasswordComponent },
-  { path: "reset-password/:resetToken", component: ResetPasswordComponent },
+  { path: "reset-password/:resetToken/:id", component: ResetPasswordComponent },
 ];
 
 @NgModule({

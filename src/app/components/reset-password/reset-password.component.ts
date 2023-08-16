@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-reset-password",
@@ -10,20 +11,38 @@ import { UserService } from "src/app/services/user.service";
 })
 export class ResetPasswordComponent implements OnInit {
   resetForm: FormGroup;
-  resetToken: string = "";
+
+  user: any = {};
   constructor(
     private activatedRoute: ActivatedRoute,
-    private userService: UserService,
-    private formBuilder: FormBuilder
+    private router: Router,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.resetForm = this.formBuilder.group({
-      pwd: [""],
-    });
-    this.resetToken = this.activatedRoute.snapshot.paramMap.get("resetToken");
+    this.userService
+      .getUserById(this.activatedRoute.snapshot.paramMap.get("id"))
+      .subscribe((response) => {
+        this.user = response.user;
+      });
   }
   resetPassword() {
-    console.log("heretoken ,paswword", this.resetForm.value, this.resetToken);
+    console.log("here obj", this.user);
+    this.userService.editUser(this.user).subscribe((response) => {
+      if (response.message == "OK") {
+        Swal.fire({
+          title: "  Your password has been successfully changed !!",
+          showConfirmButton: false,
+          icon: "success",
+        });
+        this.router.navigate(["login"]);
+      } else {
+        Swal.fire({
+          title: "  Error !!",
+          showConfirmButton: false,
+          icon: "error",
+        });
+      }
+    });
   }
 }

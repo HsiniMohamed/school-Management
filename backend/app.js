@@ -269,7 +269,7 @@ app.post("/api/users/forgot-password", async (req, res) => {
       from: "test@example.com",
       to: email,
       subject: "Réinitialisation du mot de passe",
-      html: `<p>Cliquez sur ce <a href="http://localhost:4200/reset-password/${resetToken}">lien</a> pour réinitialiser votre mot de passe.</p>`,
+      html: `<p>Cliquez sur ce <a href="http://localhost:4200/reset-password/${resetToken}/${user._id}">lien</a> pour réinitialiser votre mot de passe.</p>`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -293,15 +293,26 @@ app.post("/api/users/forgot-password", async (req, res) => {
 
 //Bussiness Logic : Add NEw PAssword
 app.put("/api/users", (req, res) => {
-  User.updateOne({ resetToken: req.body.resetToken }, req.body).then(
-    (response) => {
+  bcrypt.hash(req.body.pwd, 8).then((cryptedPwd) => {
+    req.body.pwd = cryptedPwd;
+    console.log("here backend", req.body);
+    User.updateOne({ _id: req.body._id }, req.body).then((response) => {
       if (response.nModified == 1) {
-        res.json({ msg: "Edited With Success" });
+        res.json({ message: "OK" });
       } else {
-        res.json({ msg: "Not Edited" });
+        res.json({ message: "Not OK" });
       }
-    }
-  );
+    });
+  });
 });
+//Bussiness Logic:Get User By Id
+app.get("/api/users/:id", (req, res) => {
+  console.log("here in BL : Get User By Id");
+  let id = req.params.id;
+  User.findOne({ _id: id }).then((doc) => {
+    res.status(200).json({ user: doc });
+  });
+});
+
 //make application exportables
 module.exports = app;

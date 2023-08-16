@@ -81,9 +81,10 @@ export class UserService {
     );
   }
   //Reset Password End
-
-  //Reset NEw password
-  resetNewPassword(obj) {
+  getUserById(id) {
+    return this.httpClient.get<{ user: any }>(`${this.userURL}/${id}`);
+  }
+  editUser(obj) {
     return this.httpClient.put<{ message: string }>(this.userURL, obj);
   }
 }
