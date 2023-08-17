@@ -97,6 +97,15 @@ const storageConfig = multer.diskStorage({
     cb(null, fileName);
   },
 });
+//Configuration Mailtrap with nodemailer
+let transporter = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "afcf34ef83695f",
+    pass: "35f025444c6c18",
+  },
+});
 
 // Function Generate Reset Token For Forgot Password
 function generateResetToken() {
@@ -246,24 +255,13 @@ app.post("/api/users/forgot-password", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      console.log("L'utilisateur n'existe pas.");
-      return res.json({ message: "L'utilisateur n'existe pas." });
+      return res.json({ message: "0" });
     }
     // Générez un jeton de réinitialisation (peut-être avec une bibliothèque comme crypto-random-string)
     const resetToken = generateResetToken();
     // Enregistrez le jeton dans la base de données pour cet utilisateur
     user.resetToken = resetToken;
     await user.save();
-
-    // Envoi de l'e-mail de réinitialisation with MailTrap
-    const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "afcf34ef83695f",
-        pass: "35f025444c6c18",
-      },
-    });
 
     const mailOptions = {
       from: "test@example.com",
@@ -274,9 +272,7 @@ app.post("/api/users/forgot-password", async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res
-      .status(200)
-      .json({ message: "Demande de réinitialisation envoyée avec succès." });
+    res.status(200).json({ message: "1" });
   } catch (error) {
     console.error(
       "Erreur lors de la réinitialisation du mot de passe :",
@@ -291,16 +287,15 @@ app.post("/api/users/forgot-password", async (req, res) => {
 
 //Bussiness logic :Forgot Password End
 
-//Bussiness Logic : Add NEw PAssword
+//Bussiness Logic :Reset and Add NEw PAssword
 app.put("/api/users", (req, res) => {
   bcrypt.hash(req.body.pwd, 8).then((cryptedPwd) => {
     req.body.pwd = cryptedPwd;
-    console.log("here backend", req.body);
     User.updateOne({ _id: req.body._id }, req.body).then((response) => {
       if (response.nModified == 1) {
-        res.json({ message: "OK" });
+        res.json({ message: "1" });
       } else {
-        res.json({ message: "Not OK" });
+        res.json({ message: "0" });
       }
     });
   });
@@ -311,6 +306,29 @@ app.get("/api/users/:id", (req, res) => {
   let id = req.params.id;
   User.findOne({ _id: id }).then((doc) => {
     res.status(200).json({ user: doc });
+  });
+});
+//Bussiness Logic : Sending mail
+app.post("/api/users/send-email", (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  const mailOptions = {
+    from: email,
+    to: "admin@example.com", // L'adresse e-mail de l'administrateur
+    subject: subject,
+    text: `Nom de l'utilisateur : ${name}\nE-mail de l'utilisateur : ${email}\n\nMessage :\n${message}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "0",
+      });
+    } else {
+      console.log("E-mail envoyé : " + info.response);
+      res.status(200).json({ message: "1" });
+    }
   });
 });
 

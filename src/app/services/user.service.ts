@@ -87,4 +87,10 @@ export class UserService {
   editUser(obj) {
     return this.httpClient.put<{ message: string }>(this.userURL, obj);
   }
+  sendMessage(obj) {
+    return this.httpClient.post<{ message: string }>(
+      this.userURL + "/send-email",
+      obj
+    );
+  }
 }

@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPassword() {
     console.log("here obj", this.user);
     this.userService.editUser(this.user).subscribe((response) => {
-      if (response.message == "OK") {
+      if (response.message == "1") {
         Swal.fire({
           title: "  Your password has been successfully changed !!",
           showConfirmButton: false,

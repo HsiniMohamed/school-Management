@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "src/app/services/user.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-forgot-password",
@@ -26,11 +27,25 @@ export class ForgotPasswordComponent implements OnInit {
     this.userService
       .resetPassword(this.resetForm.value)
       .subscribe((response) => {
-        console.log(
-          "Demande de réinitialisation envoyée avec succès",
-          response.message
-        );
-        // Vous pouvez afficher un message à l'utilisateur ici
+        if (response.message == "1") {
+          Swal.fire({
+            title: "  Reset request sent successfully !!",
+            showConfirmButton: false,
+            icon: "success",
+          });
+        } else if (response.message == "0") {
+          Swal.fire({
+            title: "  The user does not exist.!!",
+            showConfirmButton: false,
+            icon: "error",
+          });
+        } else {
+          Swal.fire({
+            title: response.message,
+            showConfirmButton: false,
+            icon: "error",
+          });
+        }
       });
   }
 }
