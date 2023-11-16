@@ -1429,3 +1429,6 @@ blockquote p {
     stroke-dashoffset: -136px;
   }
 }
+.cursor-pointer {
+  cursor: pointer;
+}

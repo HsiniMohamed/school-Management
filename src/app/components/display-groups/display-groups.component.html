@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Creation date</th>
+      <th scope="col">Training course</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of groupsTab">
+      <td>{{ group.name }}</td>
+      <td>{{ group.date | date : "dd MMMM yyyy" }}</td>
+      <td>{{ group.categoryName }}</td>
+
+      <td>
+        <button
+          class="btn btn-outline-danger ms-1 p-1"
+          (click)="deleteGroup(group._id)"
+        >
+          Delete
+          <i class="fa fa-trash"></i>
+        </button>
+        <button
+          class="btn btn-outline-success ml-3 p-1"
+          (click)="displayGroup(group._id)"
+        >
+          Display <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

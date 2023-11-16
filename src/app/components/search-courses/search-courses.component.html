@@ -1,0 +1,26 @@
+<form #searchForm="ngForm" (ngSubmit)="searchCourses()">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-md-6 form-group">
+      <!-- <label for="name"> </label> -->
+
+      <div class="input-group">
+        <!-- Utilisez une classe input-group pour mettre l'icône à côté de l'input -->
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Search Courses"
+          [(ngModel)]="search.name"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-outline-secondary">
+            <!-- Utilisez un bouton de type submit pour activer la recherche -->
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

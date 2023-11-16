@@ -1,0 +1,217 @@
+<section
+  class="site-hero site-hero-innerpage overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/big_image_1.jpg)"
+>
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+        <div class="mb-5">
+          <h1>Request Quote</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="site-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 box">
+        <h2 class="mb-5">Request For a Quote</h2>
+
+        <form [formGroup]="quoteForm">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="firstName">First Name *</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                formControlName="firstName"
+              />
+              <div
+                *ngIf="
+                  quoteForm.controls['firstName'].invalid &&
+                  (quoteForm.controls['firstName'].touched ||
+                    quoteForm.controls['firstName'].dirty)
+                "
+              >
+                <div
+                  class="text-warning"
+                  *ngIf="quoteForm.controls['firstName'].errors.required"
+                >
+                  First Name Is Required
+                </div>
+                <div
+                  class="text-warning"
+                  *ngIf="quoteForm.controls['firstName'].errors.minlength"
+                >
+                  First Name must have at least 3 chars
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="lastName">Last Name *</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                formControlName="lastName"
+              />
+              <div
+                *ngIf="
+                  quoteForm.controls['lastName'].invalid &&
+                  (quoteForm.controls['lastName'].touched ||
+                    quoteForm.controls['lastName'].dirty)
+                "
+              >
+                <div
+                  class="text-warning"
+                  *ngIf="quoteForm.controls['lastName'].errors.required"
+                >
+                  Last Name Is Required
+                </div>
+                <div
+                  class="text-warning"
+                  *ngIf="quoteForm.controls['lastName'].errors.minlength"
+                >
+                  Last Name must have at least 5 chars
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="phone">Phone Number *</label>
+              <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                formControlName="phone"
+              />
+              <span style="color: red">{{ errorMsgPhone }}</span>
+              <div
+                *ngIf="
+                  quoteForm.controls['phone'].invalid &&
+                  (quoteForm.controls['phone'].touched ||
+                    quoteForm.controls['phone'].dirty)
+                "
+              >
+                <div
+                  *ngIf="quoteForm.controls['phone'].errors.required"
+                  class="text-warning"
+                >
+                  Phone Is Required
+                </div>
+                <div
+                  *ngIf="quoteForm.controls['phone'].errors.pattern"
+                  class="text-warning"
+                >
+                  Please enter valid phone number.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="email">Email Adress *</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+              />
+              <span style="color: red">{{ errorMsgEmail }}</span>
+              <div
+                *ngIf="
+                  quoteForm.controls['email'].invalid &&
+                  (quoteForm.controls['email'].touched ||
+                    quoteForm.controls['email'].dirty)
+                "
+              >
+                <div
+                  *ngIf="quoteForm.controls['email'].errors.required"
+                  class="text-warning"
+                >
+                  Email Is Required
+                </div>
+                <div
+                  *ngIf="quoteForm.controls['email'].errors.email"
+                  class="text-warning"
+                >
+                  Format Email Invalid
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <legend>Choose Planning *</legend>
+              <div>
+                <input
+                  type="radio"
+                  id="day"
+                  name="planingOption"
+                  value="Day"
+                  formControlName="planingOption"
+                />
+                <label for="day">Day courses</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="evening"
+                  name="planingOption"
+                  value="Evening"
+                  formControlName="planingOption"
+                />
+                <label for="evening">Evening courses</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 row">
+            <div class="col-md-6 form-group">
+              <input
+                type="submit"
+                value="Submit"
+                type="submit"
+                (click)="askForaQuote()"
+                [disabled]="quoteForm.invalid"
+                class="btn btn-primary"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="overflow">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-7 order-lg-3 order-1 mb-lg-0 mb-5">
+        <img
+          src="assets/images/person_testimonial_1.jpg"
+          alt="Image placeholder"
+          class="img-md-fluid"
+        />
+      </div>
+      <div class="col-lg-1 order-lg-2"></div>
+      <div class="col-lg-4 order-lg-1 order-2 mb-lg-0 mb-5">
+        <blockquote class="testimonial">
+          &ldquo;I had an amazing experience with SKWELA. The courses were
+          engaging, the instructors were knowledgeable, and the support was
+          exceptional. Thanks to my training here, I've gained valuable skills
+          and confidence in my field.&ldquo;
+        </blockquote>
+        <p>&mdash; John Doe, Certified ReactJS Student</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->

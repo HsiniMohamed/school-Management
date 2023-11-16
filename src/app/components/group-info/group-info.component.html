@@ -1,0 +1,138 @@
+<section
+  class="site-hero site-hero-innerpage overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/big_image_1.jpg)"
+>
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+        <div class="mb-5">
+          <h1 class="mb-3">{{ group.name }}</h1>
+          <p class="post-meta">
+            {{ group.date | date : "dd MMMM yyyy" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 blog-content">
+        <div class="pt-5"></div>
+
+        <div class="pt-5">
+          <div class="vcard bio">
+            <!-- cours -->
+            <img src="{{ category.photo }}" alt="Image placeholder" />
+          </div>
+          <h3 class="mb-1">{{ category.name }}</h3>
+          <blockquote class="mb-5">
+            <p>{{ category.description }}</p>
+          </blockquote>
+          <ul class="comment-list">
+            <li class="comment" *ngFor="let course of coursesClass">
+              <div class="vcard bio">
+                <!-- cours -->
+                <img
+                  src="{{ course.photo }}"
+                  class="w-50 h-80"
+                  alt="Image placeholder"
+                />
+              </div>
+              <div class="comment-body">
+                <!-- name -->
+                <h3>{{ course.name }}</h3>
+                <!-- duration -->
+                <div class="meta">{{ course.duration }}</div>
+
+                <!-- description -->
+                <p>
+                  {{ course.description }}
+                </p>
+              </div>
+            </li>
+          </ul>
+          <!-- END comment-list -->
+        </div>
+      </div>
+      <div class="col-md-4 sidebar">
+        <div
+          class="sidebar-box"
+          *ngIf="isLoggedIn() && decodedToken.role == 'admin'"
+        >
+          <form
+            action="#"
+            class="search-form"
+            #studentForm="ngForm"
+            (ngSubmit)="addStudent()"
+          >
+            <div class="form-group">
+              <label for="studentId">Add a new student to this class :</label>
+              <!-- <span class="icon fa fa-search"></span> -->
+              <input
+                list="students"
+                type="text"
+                class="form-control"
+                name="studentId"
+                [(ngModel)]="student.studentId"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Choose a name Student from list :"
+              />
+              <datalist id="students">
+                <option *ngFor="let student of students" [value]="student._id">
+                  {{ student.firstName }} {{ student.lastName }}
+                </option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn-small btn-primary cursor-pointer"
+              >
+                Add student
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="sidebar-box">
+          <div class="categories">
+            <h3>Students in this Class</h3>
+            <li *ngFor="let student of studentsClass">
+              <div class="d-flex mb-1">
+                <div class="vcard bio">
+                  <!-- cours -->
+                  <img
+                    src="{{ student.photo }}"
+                    class="w-50 h-80 rounded-circle"
+                    alt="Image placeholder"
+                  />
+                  <h5>{{ student.firstName }} {{ student.lastName }}</h5>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn-small btn-primary cursor-pointer"
+                  (click)="
+                    showPayementStatus(student._id, group._id, category._id)
+                  "
+                >
+                  Payment status
+                </button>
+              </div>
+            </li>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <img
+            src="assets/images/person_2.jpg"
+            alt="Image placeholder"
+            class="img-fluid mb-4"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->

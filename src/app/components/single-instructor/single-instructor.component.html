@@ -1,0 +1,28 @@
+<div class="border border-top-0 ml-3 h-100">
+  <div class="media feature text-center">
+    <img
+      src="{{ InstructorInput?.photo }}"
+      alt="Image placeholder"
+      class="mb-3"
+    />
+    <div class="media-body">
+      <div>
+        <h3 class="mt-0 text-warning">
+          {{ InstructorInput?.firstName }} {{ InstructorInput?.lastName }}
+        </h3>
+      </div>
+      <h5 class="text-dark">{{ InstructorInput?.email }}</h5>
+      <div *ngFor="let cours of InstructorInput?.courses">
+        <p class="instructor-meta">
+          <span class="text-info"> {{ cours.name }} </span>
+          <span class="text-dark">({{ cours.description }})</span>
+        </p>
+      </div>
+      <button class="btn btn-sm">
+        <a href="{{ InstructorInput?.cv }}" target="_blank"
+          >Display CV <i class="fa fa-download" aria-hidden="true"></i>
+        </a>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<section
+  class="site-hero site-hero-innerpage overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/big_image_1.jpg)"
+>
+  <div class="container mb-3">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+        <div class="mb-3">
+          <h1 class="mb-1">Payment</h1>
+          <h1 style="font-size: larger" class="mb-3">
+            {{ student.firstName }} {{ student.lastName }}
+          </h1>
+          <h1 style="font-size: medium">
+            {{ group.name }} || {{ category.name }}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="site-section bg-light">
+  <div class="container">
+    <div class="mb-5">
+      <h1 class="text-warning">{{ msgError }}</h1>
+    </div>
+
+    <h3 class="mb-5" *ngIf="!isExist || !payment.fullyPaid">
+      Make a payment for this student
+    </h3>
+    <div class="row">
+      <div class="col-md-12">
+        <form #payementForm="ngForm" (ngSubmit)="makePayment()">
+          <div class="row">
+            <div class="col-md-5 form-group">
+              <div>
+                <div *ngIf="!isExist">
+                  <label>Select payment method *</label>
+                  <div>
+                    <input
+                      type="radio"
+                      id="fullpayment"
+                      name="drone"
+                      value="fullpayment"
+                      [(ngModel)]="payment.method"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                    <label for="huey" class="ml-1"> Full payment</label>
+
+                    <div>
+                      <input
+                        type="radio"
+                        id="slices"
+                        name="drone"
+                        value="slices"
+                        [(ngModel)]="payment.method"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                      <label for="dewey" class="ml-1">
+                        4 Slices
+                        <span class="text-warning ml-1">
+                          (make payment of the first installment)</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="isExist && !payment.fullyPaid">
+                  <input
+                    type="checkbox"
+                    id="slices"
+                    name="drone"
+                    value="slices"
+                    [(ngModel)]="payment.method"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <label for="dewey" class="ml-1">
+                    Make a
+                    <span class="text-warning ml-1"> {{ msgSlice }}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-5 form-group mb-3">
+              <h1 style="font-size: larger" class="mb-3">
+                <span class="tex-build text-primary"> Name Student :</span>
+                {{ student.firstName }}
+                {{ student.lastName }}
+              </h1>
+              <h1 style="font-size: medium">
+                <span class="tex-build text-primary"> Name Class :</span>
+                {{ group.name }}
+              </h1>
+              <h1 style="font-size: medium">
+                <span class="tex-build text-primary">
+                  Name Training Course :</span
+                >
+                {{ category.name }}
+              </h1>
+            </div>
+          </div>
+
+          <div class="row">
+            <div
+              class="col-md-5 form-group"
+              *ngIf="(isExist && !payment.fullyPaid) || !isExist"
+            >
+              <button type="submit" class="btn btn-primary">
+                Make Payemnt
+              </button>
+            </div>
+            <div class="col-md-5 form-group" *ngIf="isExist">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                (click)="sendPaymentSummary()"
+              >
+                Send Payment Summary
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->

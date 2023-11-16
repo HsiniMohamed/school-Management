@@ -1,0 +1,36 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cours of coursesTab">
+      <td>
+        <div class="vcard bio">
+          <!-- cours -->
+          <img
+            src="{{ cours.photo }}"
+            class="w-50 h-80"
+            alt="Image placeholder"
+          />
+        </div>
+      </td>
+      <td>{{ cours.name }}</td>
+      <td>{{ cours.description }}</td>
+      <td>{{ cours.duration }}</td>
+
+      <td>
+        <button
+          class="btn btn-outline-warning ml-3 p-1"
+          (click)="editCourse(cours._id)"
+        >
+          Edit<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

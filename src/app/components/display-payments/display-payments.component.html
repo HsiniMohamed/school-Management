@@ -1,0 +1,51 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Student</th>
+      <th scope="col">Class</th>
+      <th scope="col">Course</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let payment of payments">
+      <td>{{ payment?._id }}</td>
+      <td>
+        <span class="font-weight-bold bg-dark text-white">{{
+          payment?.student
+        }}</span>
+      </td>
+      <td>{{ payment?.class }}</td>
+      <td>{{ payment?.categoryName }}</td>
+      <td>{{ payment?.date | date : "dd MMMM yyyy" }}</td>
+      <td *ngIf="payment.fullyPaid == true">
+        <span class="font-weight-bold text-dark bg-success">
+          Full Amount Is Paid</span
+        >
+      </td>
+      <td *ngIf="payment.fullyPaid != true">
+        <span class="font-weight-bold text-dark bg-warning"
+          >Full Amount Incomplete Payment</span
+        >
+      </td>
+
+      <td>
+        <button
+          class="btn btn-secondary btn-sm"
+          (click)="
+            showPayementStatus(
+              payment.userId,
+              payment.groupId,
+              payment.categoryId
+            )
+          "
+        >
+          Payment status
+
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

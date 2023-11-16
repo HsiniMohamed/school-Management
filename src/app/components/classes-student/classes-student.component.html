@@ -1,0 +1,23 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Creation date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of groups">
+      <td>{{ group?.name }}</td>
+      <td>{{ group?.date | date : "dd MMMM yyyy" }}</td>
+
+      <td>
+        <button
+          class="btn btn-warning ml-3 p-1"
+          (click)="displayGroup(group._id)"
+        >
+          Show Class <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

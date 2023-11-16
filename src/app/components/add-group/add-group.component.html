@@ -1,0 +1,73 @@
+<section
+  class="site-hero site-hero-innerpage overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/big_image_1.jpg)"
+>
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+        <div class="mb-5">
+          <h1>Add New Class Training</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="site-section bg-light">
+  <div class="container">
+    <h3 class="mb-5">Add New Class Training</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <form #groupForm="ngForm" (ngSubmit)="addNewClass()">
+          <div class="row">
+            <div class="col-md-5 form-group">
+              <label for="name"> Name of class training :</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                [(ngModel)]="group.name"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
+            <div class="col-md-5 form-group">
+              <label for="myBrowser"
+                >Choose a training course from this list :</label
+              >
+              <input
+                list="categories"
+                class="form-control"
+                name="categoryId"
+                [(ngModel)]="group.categoryId"
+                [ngModelOptions]="{ standalone: true }"
+              />
+              <datalist id="categories">
+                <option
+                  *ngFor="let category of categories"
+                  [value]="category._id"
+                >
+                  {{ category.name }}
+                  {{ category.description }}
+                  {{ category.cost }} dt
+                </option>
+              </datalist>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10 form-group text-center">
+              <button type="submit" class="btn btn-primary">
+                Add New Class
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->

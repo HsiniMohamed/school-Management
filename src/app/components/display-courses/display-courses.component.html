@@ -1,0 +1,45 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Teacher Name</th>
+      <th scope="col">Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cours of coursesTab">
+      <td>
+        <div class="vcard bio">
+          <!-- cours -->
+          <img
+            src="{{ cours.photo }}"
+            alt="Image placeholder"
+            style="width: 50px; height: 50px; border-radius: 50%"
+          />
+        </div>
+      </td>
+      <td>{{ cours.name }}</td>
+      <td>{{ cours.description }}</td>
+      <td>{{ cours.teacherName }}</td>
+      <td>{{ cours.duration }}</td>
+
+      <td>
+        <button
+          class="btn btn-outline-danger ms-1 p-1"
+          (click)="deleteCourse(cours._id)"
+        >
+          Delete
+          <i class="fa fa-trash"></i>
+        </button>
+        <button
+          class="btn btn-outline-success ml-3 p-1"
+          (click)="editCourse(cours._id)"
+        >
+          Edit<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

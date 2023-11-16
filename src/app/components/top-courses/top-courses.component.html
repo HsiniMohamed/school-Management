@@ -1,0 +1,50 @@
+<section class="site-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center">
+        <h2>Top Courses</h2>
+        <p class="lead">
+          <app-search-courses></app-search-courses>
+        </p>
+      </div>
+    </div>
+    <div class="row top-course">
+      <div
+        class="col-lg-3 col-md-4 col-sm-6 col-12"
+        *ngFor="let category of categories.slice(0, 4)"
+      >
+        <a
+          (click)="goTocategoryInfo(category._id)"
+          class="course cursor-pointer"
+        >
+          <img src="{{ category.photo }}" alt="Image placeholder" />
+          <h2 class="text-info bg-dark text-center">{{ category.name }}</h2>
+          <p class="text-warning bg-dark text-center">
+            {{ category.duration }}
+          </p>
+          <p class="text-Tertiary bg-dark text-center">
+            {{ category.description }}
+          </p>
+        </a>
+        <button
+          class="btn btn-outline-secondary p-1 btn-sm"
+          (click)="goTocategoryInfo(category._id)"
+        >
+          Have more infos about this course
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div>
+      <p class="text-right mt-3">
+        <a
+          routerLink="sessions-training"
+          class="text-center text-warning bg-dark"
+        >
+          Show More Courses...
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+<!-- END section -->

@@ -81,11 +81,46 @@ export class UserService {
     );
   }
   //Reset Password End
+  editUser(obj) {
+    return this.httpClient.put<{ message: string }>(
+      this.userURL + "/reset-pwd",
+      obj
+    );
+  }
+  // Update User Photo
+  updateProfilePhoto(photo: File, userId: string) {
+    const formData = new FormData();
+    formData.append("photo", photo);
+    return this.httpClient.put<{ message: string }>(
+      `${this.userURL}/update-photo/${userId}`,
+      formData
+    );
+  }
+  //Edit Profile
+  editProfile(newUser) {
+    return this.httpClient.put<{ message: string }>(
+      `${this.userURL}/edit-profile`,
+      newUser
+    );
+  }
+  getAllTeachers() {
+    return this.httpClient.get<{ teachersTab: any; message: string }>(
+      this.userURL + "/teachers"
+    );
+  }
+  getAllStudents() {
+    return this.httpClient.get<{ usersTab: any; message: string }>(
+      this.userURL + "/students"
+    );
+  }
   getUserById(id) {
     return this.httpClient.get<{ user: any }>(`${this.userURL}/${id}`);
   }
-  editUser(obj) {
-    return this.httpClient.put<{ message: string }>(this.userURL, obj);
+  deleteUserById(id) {
+    return this.httpClient.delete<{ msg: string }>(`${this.userURL}/${id}`);
+  }
+  validateTeacher(teacher) {
+    return this.httpClient.put<{ message: string }>(this.userURL, teacher);
   }
   sendMessage(obj) {
     return this.httpClient.post<{ message: string }>(

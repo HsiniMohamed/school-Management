@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       console.log("here response from back end", response);
       if (response.msg == "2") {
         sessionStorage.setItem("jwt", response.user);
-        // this.router.navigate([`profile/${this.loginForm.value.email}`]);
+        this.router.navigate([""]);
       } else {
         this.errorMsg = "Please Check email/pwd";
       }

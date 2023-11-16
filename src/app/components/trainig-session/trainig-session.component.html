@@ -1,0 +1,77 @@
+<section
+  class="site-hero overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/img_3.jpg)"
+>
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-12">
+        <div class="mb-5">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="mb-0">{{ category.name }}</h1>
+              <p>{{ category.duration }}</p>
+              <p class="lead mb-5">
+                {{ category.description }}
+              </p>
+
+              <p class="lead mb-3">
+                To get more information about schedules, the course,
+                availability, and more, you can request a quote for this session
+                via email.
+              </p>
+              <p>
+                <a
+                  (click)="requestQuote(category._id)"
+                  class="btn btn-outline-white mr-2"
+                  >Request Quote</a
+                >
+              </p>
+            </div>
+            <div class="col-md-4">
+              <img
+                src="{{ category.photo }}"
+                alt="Image placeholder"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="site-section episodes">
+  <div class="container">
+    <div *ngFor="let course of coursesTab; let i = index">
+      <div class="row bg-light align-items-center p-4 episode">
+        <div class="col-md-3 vcard bio episode-number bg-dark">
+          <!-- <span class="episode-number">1</span> -->
+
+          <!-- cours -->
+          <img src="{{ course.photo }}" alt="Image placeholder" />
+        </div>
+        <div class="col-md-9">
+          <p class="meta">
+            Course {{ i + 1 }}
+            <a href="#">Runtime {{ course.duration }} </a>
+          </p>
+          <h2>
+            <a href="#"> {{ course.name }} </a>
+          </h2>
+          <p>By {{ course.teacher }}</p>
+
+          <p>
+            {{ course.description }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row align-items-center p-4 episode"></div>
+    </div>
+  </div>
+</section>
+<app-notice></app-notice>
+<!-- END section -->

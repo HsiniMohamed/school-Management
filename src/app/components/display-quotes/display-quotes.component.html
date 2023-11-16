@@ -1,0 +1,40 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">From</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date</th>
+      <th scope="col">About</th>
+      <th scope="col">State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let quote of quotes">
+      <td>{{ quote.firstName }} {{ quote.lastName }}</td>
+      <td>{{ quote.phone }}</td>
+      <td>{{ quote.email }}</td>
+      <td>{{ quote.date | date : "dd MMMM yyyy | | hh : mm" }}</td>
+      <td>{{ quote.categoryName }}</td>
+      <td>
+        <span
+          [ngClass]="{
+            answered: quote?.state == 'Answered',
+            pending: quote?.state == 'Pending'
+          }"
+          >{{ quote?.state }}</span
+        >
+      </td>
+
+      <td>
+        <button
+          *ngIf="quote?.state == 'Pending'"
+          class="btn btn-outline-secondary ms-1 p-1"
+          (click)="sendReply(quote._id)"
+        >
+          Send Reply <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

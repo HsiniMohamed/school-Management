@@ -1,0 +1,8 @@
+.answered{
+  color: rgb(125, 170, 57);
+  font-size: 18px;
+}
+.pending{
+  color: rgb(206, 110, 110);
+  font-size: 18px;
+}

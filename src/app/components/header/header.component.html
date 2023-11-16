@@ -19,7 +19,7 @@
           <li class="nav-item">
             <a class="nav-link active" routerLink="">Home</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="isLoggedIn()">
             <a
               class="nav-link dropdown-toggle"
               href="courses.html"
@@ -27,32 +27,48 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              >Online Courses</a
+              >Dashboard</a
             >
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="courses.html">HTML</a>
-              <a class="dropdown-item" href="courses.html">WordPress</a>
-              <a class="dropdown-item" href="courses.html">Web Development</a>
-              <a class="dropdown-item" href="courses.html">Javascript</a>
-              <a class="dropdown-item" href="courses.html">Photoshop</a>
+              <a
+                class="dropdown-item bg-dark text-warning"
+                routerLink="dashboard-admin"
+                *ngIf="isLoggedIn() && decodedToken.role == 'admin'"
+              >
+                {{ decodedToken.fName }} {{ decodedToken.lName }}</a
+              >
+              <a
+                class="dropdown-item bg-dark text-warning"
+                routerLink="dashboard-student"
+                *ngIf="isLoggedIn() && decodedToken.role == 'student'"
+              >
+                {{ decodedToken.fName }} {{ decodedToken.lName }}
+              </a>
+              <a
+                class="dropdown-item bg-dark text-warning"
+                routerLink="dashboard-teacher"
+                *ngIf="isLoggedIn() && decodedToken.role == 'teacher'"
+              >
+                {{ decodedToken.fName }} {{ decodedToken.lName }}</a
+              >
             </div>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="blog.html">Blog</a>
+            <a class="nav-link" routerLink="sessions-training">Courses</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" routerLink="instructors">Instructors</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="contact">Contact</a>
           </li>
         </ul>
         <ul class="navbar-nav absolute-right">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isLoggedIn()">
             <a routerLink="login" class="nav-link">Login</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="!isLoggedIn()">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -63,8 +79,37 @@
               >Register</a
             >
             <div class="dropdown-menu" aria-labelledby="dropdown05">
-              <a class="dropdown-item" routerLink="signup-teacher">Teacher</a>
-              <a class="dropdown-item" routerLink="signup-student">Student</a>
+              <a
+                class="dropdown-item bg-dark text-warning"
+                routerLink="signup-teacher"
+                >Teacher</a
+              >
+              <a
+                class="dropdown-item bg-dark text-warning"
+                routerLink="signup-student"
+                >Student</a
+              >
+            </div>
+          </li>
+          <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="dropdown06"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              ><span class="text-warning">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{ decodedToken.fName }} {{ decodedToken.lName }}</span
+              ></a
+            >
+            <div class="dropdown-menu" aria-labelledby="dropdown06">
+              <a
+                class="dropdown-item bg-dark text-warning cursor-pointer"
+                (click)="logout()"
+                >Logout</a
+              >
             </div>
           </li>
         </ul>

@@ -1,0 +1,59 @@
+<section
+  class="site-hero overlay"
+  data-stellar-background-ratio="0.5"
+  style="background-image: url(assets/images/big_image_1.jpg)"
+>
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+      <div class="col-md-8 text-center">
+        <div class="mb-5">
+          <h1>Level Up Your Skills</h1>
+          <p class="lead">See our courses Below.</p>
+          <!-- <p>forms search</p> -->
+        </div>
+        <app-search-courses></app-search-courses>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END section -->
+
+<section class="site-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center" *ngIf="msgError">
+        <div class="alert alert-danger">
+          {{ msgError }}
+        </div>
+      </div>
+      <div class="col-md-7 text-center" *ngIf="!msgError">
+        <h2>Our Courses</h2>
+        <p class="lead">Learn something new every day with skwela</p>
+      </div>
+    </div>
+
+    <div class="row top-course">
+      <div class="col-md-4 col-sm-6 col-12" *ngFor="let category of categories">
+        <a
+          (click)="goTocategoryInfo(category._id)"
+          class="course cursor-pointer"
+        >
+          <img src="{{ category.photo }}" alt="Image placeholder" />
+
+          <h2 class="text-info bg-dark text-center">{{ category.name }}</h2>
+          <p>{{ category.duration }}</p>
+          <p>{{ category.description }}</p>
+        </a>
+        <button
+          class="btn btn-outline-secondary p-1"
+          (click)="goTocategoryInfo(category._id)"
+        >
+          More Infos <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- END row -->
+  </div>
+</section>
+<!-- END section -->
